@@ -12,6 +12,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const t = "../../tailwind.config.ts"
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://munir.mardinli.dev"),
   alternates: {

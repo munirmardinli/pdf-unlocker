@@ -4,9 +4,8 @@ const nextConfig: NextConfig = {
   output: 'export',
   reactStrictMode: false,
   trailingSlash: true,
-  webpack: (config) => {
-    config.resolve.alias.canvas = false;
-    return config;
+  images: {
+    unoptimized: true,
   },
 };
 
