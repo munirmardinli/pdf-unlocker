@@ -13,6 +13,11 @@ concurrency:
 permissions:
   contents: write
 
+env:
+  GITHUB_ACTIONS: true
+  NEXT_TELEMETRY_DISABLED: 1
+  NEXT_PUBLIC_BASE_PATH: /pdf-unlocker
+
 jobs:
   build:
     runs-on: ubuntu-latest
