@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export',
+  reactStrictMode: false,
+  trailingSlash: true,
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    return config;
+  },
 };
 
 export default nextConfig;

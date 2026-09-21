@@ -1,0 +1,79 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: "**/*.md"
+  - changed-files:
+      - any-glob-to-any-file: "README.md"
+  - changed-files:
+      - any-glob-to-any-file: "SECURITY.md"
+  - changed-files:
+      - any-glob-to-any-file: "LICENSE"
+
+git-config:
+  - changed-files:
+      - any-glob-to-any-file: "bash/**/globaly.*"
+      - any-glob-to-any-file: "**/.gitconfig"
+
+components:
+  - changed-files:
+      - any-glob-to-any-file: "apps/ui/src/components/**"
+
+stores:
+  - changed-files:
+      - any-glob-to-any-file: "apps/ui/src/stores/**"
+
+utils:
+  - changed-files:
+      - any-glob-to-any-file: "apps/ui/src/utils/**"
+
+hooks:
+  - changed-files:
+      - any-glob-to-any-file: "apps/ui/src/hooks/**"
+
+types:
+  - changed-files:
+      - any-glob-to-any-file: "apps/ui/src/types/**"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file: "package.json"
+  - changed-files:
+      - any-glob-to-any-file: "package-lock.json"
+  - changed-files:
+      - any-glob-to-any-file: "apps/ui/package.json"
+  - changed-files:
+      - any-glob-to-any-file: "apps/api/package.json"
+
+configuration:
+  - changed-files:
+      - any-glob-to-any-file: "*.config.*"
+  - changed-files:
+      - any-glob-to-any-file: "tsconfig.json"
+  - changed-files:
+      - any-glob-to-any-file: "apps/ui/tsconfig.json"
+  - changed-files:
+      - any-glob-to-any-file: "apps/api/tsconfig.json"
+  - changed-files:
+      - any-glob-to-any-file: "apps/**/next.config.*"
+  - changed-files:
+      - any-glob-to-any-file: ".env.example"
+  - changed-files:
+      - any-glob-to-any-file: "dotenv.d.ts"
+  - changed-files:
+      - any-glob-to-any-file: "bash/**/*.zsh"
+      - any-glob-to-any-file: "bash/**/*.zshrc"
+      - any-glob-to-any-file: "bash/.config/**"
+      - any-glob-to-any-file: ".npmrc"
+  - changed-files:
+      - any-glob-to-any-file: ".dockerignore"
+
+workflow:
+  - changed-files:
+      - any-glob-to-any-file: ".github/workflows/**"
+  - changed-files:
+      - any-glob-to-any-file: ".github/ISSUE_TEMPLATE/**"
+  - changed-files:
+      - any-glob-to-any-file: ".github/actions/**"
+  - changed-files:
+      - any-glob-to-any-file: ".github/**/*.yml"
+  - changed-files:
+      - any-glob-to-any-file: ".github/**/*.yaml"

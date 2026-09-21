@@ -1,69 +1,93 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+import { HtmlLayout } from '@/app/_html';
+import { jsPDF } from 'jspdf';
+
+export default function IndexPage() {
+  const [status, setStatus] = useState<string>('');
+  const [statusType, setStatusType] = useState<'info' | 'success' | 'error'>('info');
+  const [progress, setProgress] = useState<number>(0);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
+  useEffect(() => {
+    import('pdfjs-dist').then((pdfjs) => {
+      pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+        'pdfjs-dist/build/pdf.worker.min.mjs',
+        import.meta.url
+      ).toString();
+    });
+  }, []);
+
+  const processPdf = async (file: File) => {
+    if (file.type !== 'application/pdf') {
+      setStatus('Bitte wähle eine gültige PDF-Datei aus.');
+      setStatusType('error');
+      return;
+    }
+
+    setIsProcessing(true);
+    setStatus('Lade PDF...');
+    setStatusType('info');
+    setProgress(0);
+
+    try {
+      const pdfjs = await import('pdfjs-dist');
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
+
+      let newPdf: jsPDF | null = null;
+      const totalPages = pdf.numPages;
+
+      for (let i = 1; i <= totalPages; i++) {
+        setStatus(`Verarbeite Seite ${i} von ${totalPages}...`);
+
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 2.5 });
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        if (!context) continue;
+
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        await page.render({ canvasContext: context, viewport, canvas: canvas }).promise;
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.92);
+        const orientation = viewport.width > viewport.height ? 'l' : 'p';
+
+        if (i === 1) {
+          newPdf = new jsPDF(orientation, 'pt', [viewport.width, viewport.height]);
+        } else if (newPdf) {
+          newPdf.addPage([viewport.width, viewport.height], orientation);
+        }
+
+        newPdf?.addImage(imgData, 'JPEG', 0, 0, viewport.width, viewport.height);
+        setProgress((i / totalPages) * 100);
+      }
+
+      if (newPdf) {
+        const newFileName = `${file.name.replace(/\.pdf$/i, '')}_unlocked.pdf`;
+        newPdf.save(newFileName);
+        setStatus('Erfolgreich freigeschaltet und heruntergeladen!');
+        setStatusType('success');
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus('Fehler: Datei ist eventuell mit einem Passwort geschützt.');
+      setStatusType('error');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <HtmlLayout
+      onFileSelect={processPdf}
+      status={status}
+      statusType={statusType}
+      progress={progress}
+      isProcessing={isProcessing}
+    />
   );
 }
