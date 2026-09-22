@@ -17,7 +17,7 @@ services:
       - pdf.mardinli.dev
     envVars:
       - key: GITHUB_ACTIONS
-        value: true
+        value: "true"
       - key: NEXT_TELEMETRY_DISABLED
         value: 1
       - key: NEXT_PUBLIC_BASE_PATH
