@@ -12,18 +12,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const t = "../../tailwind.config.ts"
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://pdf.mardinli.dev"),
   alternates: {
     canonical: "https://pdf.mardinli.dev",
   },
+  themeColor: "#2563eb",
   icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", rel: "icon" },
-    ],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     apple: "/icon.svg",
   },
   title: {
@@ -81,7 +77,12 @@ export const metadata: Metadata = {
     description:
       "Bearbeitungssperren aus PDF-Dateien direkt im Browser entfernen.",
     creator: "@munirmardinli",
+    site: "@munirmardinli",
     images: ["/icon.svg"],
+  },
+  other: {
+    "og:cta": "PDF jetzt entsperren",
+    "og:cta_color": "#2563eb",
   },
 };
 
@@ -101,6 +102,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <meta property="og:image:width" content="512" />
         <meta property="og:image:height" content="512" />
         <meta property="og:image:alt" content="PDF Unlocker Icon" />
+        <meta property="og:cta" content="PDF jetzt entsperren" />
+        <meta property="og:cta_color" content="#2563eb" />
+        <meta name="theme-color" content="#2563eb" />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
