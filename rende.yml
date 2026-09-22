@@ -1,0 +1,31 @@
+#previews:
+#  generation: automatic
+
+services:
+  - type: web
+    name: pdf-unlocker
+    repo: https://github.com/munirmardinli/pdf-unlocker
+    branch: main
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: out
+    pullRequestPreviewsEnabled: false
+    autoDeploy: true
+    #ipAllowList: []
+    renderSubdomainPolicy: disabled
+    domains:
+      - pdf.mardinli.dev
+    envVars:
+      - key: GITHUB_ACTIONS
+        value: true
+      - key: NEXT_TELEMETRY_DISABLED
+        value: 1
+      - key: NEXT_PUBLIC_BASE_PATH
+        value: pdf-unlocker
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
