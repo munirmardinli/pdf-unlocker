@@ -66,6 +66,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "de_DE",
     siteName: "PDF Unlocker Studio",
+    images: [
+      {
+        url: "/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "PDF Unlocker Icon",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -73,6 +81,7 @@ export const metadata: Metadata = {
     description:
       "Bearbeitungssperren aus PDF-Dateien direkt im Browser entfernen.",
     creator: "@munirmardinli",
+    images: ["/icon.svg"],
   },
 };
 
@@ -86,6 +95,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <meta property="og:image" content="https://pdf.mardinli.dev/icon.svg" />
+        <meta property="og:image:secure_url" content="https://pdf.mardinli.dev/icon.svg" />
+        <meta property="og:image:type" content="image/svg+xml" />
+        <meta property="og:image:width" content="512" />
+        <meta property="og:image:height" content="512" />
+        <meta property="og:image:alt" content="PDF Unlocker Icon" />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
