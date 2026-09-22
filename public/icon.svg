@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="PDF Unlocker Icon">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+  <path d="M78 64h62c20 0 36 16 36 36v18c0 20-16 36-36 36H96v38H78V64zm20 18v36h42c9 0 18-8 18-18s-9-18-18-18H98z" fill="#f8fafc"/>
+  <path d="M150 96h24l22 22v58c0 13-10 24-24 24h-12c-13 0-24-11-24-24V120c0-13 10-24 24-24zm12 20v12h18v-12l-12-12-12 12z" fill="#93c5fd" opacity="0.96"/>
+  <path d="M164 166h18v10h-18zm-32 0h18v10h-18zm16-28h8v44h-8z" fill="#e0f2fe"/>
+</svg>

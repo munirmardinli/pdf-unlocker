@@ -15,9 +15,16 @@ const geistMono = Geist_Mono({
 const t = "../../tailwind.config.ts"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://munir.mardinli.dev"),
+  metadataBase: new URL("https://pdf.mardinli.dev"),
   alternates: {
-    canonical: "https://munir.mardinli.dev",
+    canonical: "https://pdf.mardinli.dev",
+  },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", rel: "icon" },
+    ],
+    apple: "/icon.svg",
   },
   title: {
     default: "PDF Unlocker | Entsperre PDF-Dateien direkt im Browser",
@@ -77,6 +84,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
