@@ -1,0 +1,8 @@
+User-Agent: *
+Allow: /
+
+User-Agent: *
+Disallow: /_next/
+
+Host: https://pdf.mardinli.dev
+Sitemap: https://pdf.mardinli.dev/sitemap.xml

@@ -1,0 +1,15 @@
+{
+  "status": "UP",
+  "meta": {
+    "name": "pdf-unlocker",
+    "version": "0.1.0",
+    "nodeVersion": "v20.20.2"
+  },
+  "build": {
+    "timestamp": "2026-09-22T11:40:27.375Z",
+    "environment": "production"
+  },
+  "config": {
+    "siteUrl": "https://pdf.mardinli.dev"
+  }
+}
